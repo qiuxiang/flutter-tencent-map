@@ -1,8 +1,8 @@
 name: tencent_map
 description: A new flutter plugin project.
-version: 0.0.1
-author:
-homepage:
+version: 0.0.0
+author: 7c00 <i@7c00.cc>
+homepage: https://github.com/qiuxiang/flutter-tencent-map
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -29,8 +29,6 @@ flutter:
     platforms:
       android:
         package: qiuxiang.flutter.tencent_map
-        pluginClass: TencentMapPlugin
-      ios:
         pluginClass: TencentMapPlugin
 
   # To add assets to your plugin package, add an assets section, like this:
