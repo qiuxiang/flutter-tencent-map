@@ -40,4 +40,6 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.tencent.map:tencent-map-vector-sdk:4.3.8.1'
+    implementation 'com.tencent.map:sdk-utilities:1.0.6'
 }

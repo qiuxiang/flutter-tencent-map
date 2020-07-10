@@ -43,5 +43,8 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <meta-data
+            android:name="TencentMapSDK"
+            android:value="TOCBZ-IY266-74KSP-MTWNM-PBYAT-LWB3O" />
     </application>
 </manifest>

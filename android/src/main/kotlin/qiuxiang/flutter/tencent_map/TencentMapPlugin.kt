@@ -8,6 +8,7 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
+import qiuxiang.flutter.baidu_map.TencentMapFactory
 
 /** TencentMapPlugin */
 public class TencentMapPlugin: FlutterPlugin, MethodCallHandler {
@@ -20,6 +21,7 @@ public class TencentMapPlugin: FlutterPlugin, MethodCallHandler {
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "tencent_map")
     channel.setMethodCallHandler(this);
+    flutterPluginBinding.platformViewRegistry.registerViewFactory("TencentMapView", TencentMapFactory())
   }
 
   // This static function is optional and equivalent to onAttachedToEngine. It supports the old
@@ -36,6 +38,7 @@ public class TencentMapPlugin: FlutterPlugin, MethodCallHandler {
     fun registerWith(registrar: Registrar) {
       val channel = MethodChannel(registrar.messenger(), "tencent_map")
       channel.setMethodCallHandler(TencentMapPlugin())
+      registrar.platformViewRegistry().registerViewFactory("TencentMapView", TencentMapFactory())
     }
   }
 

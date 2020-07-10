@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:tencent_map/tencent_map.dart';
+import 'package:tencent_map/tencent_map_view.dart';
 
 void main() {
   runApp(MyApp());
@@ -49,9 +50,7 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
-        ),
+        body: TencentMapView(),
       ),
     );
   }
