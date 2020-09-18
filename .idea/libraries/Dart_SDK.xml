@@ -1,0 +1,19 @@
+<component name="libraryTable">
+  <library name="Dart SDK">
+    <CLASSES>
+      <root url="file:///run/media/i/fe4bfe2e-bb0c-4853-89a6-59dcf209ce4a/flutter/bin/cache/dart-sdk/lib/async" />
+      <root url="file:///run/media/i/fe4bfe2e-bb0c-4853-89a6-59dcf209ce4a/flutter/bin/cache/dart-sdk/lib/collection" />
+      <root url="file:///run/media/i/fe4bfe2e-bb0c-4853-89a6-59dcf209ce4a/flutter/bin/cache/dart-sdk/lib/convert" />
+      <root url="file:///run/media/i/fe4bfe2e-bb0c-4853-89a6-59dcf209ce4a/flutter/bin/cache/dart-sdk/lib/core" />
+      <root url="file:///run/media/i/fe4bfe2e-bb0c-4853-89a6-59dcf209ce4a/flutter/bin/cache/dart-sdk/lib/developer" />
+      <root url="file:///run/media/i/fe4bfe2e-bb0c-4853-89a6-59dcf209ce4a/flutter/bin/cache/dart-sdk/lib/html" />
+      <root url="file:///run/media/i/fe4bfe2e-bb0c-4853-89a6-59dcf209ce4a/flutter/bin/cache/dart-sdk/lib/io" />
+      <root url="file:///run/media/i/fe4bfe2e-bb0c-4853-89a6-59dcf209ce4a/flutter/bin/cache/dart-sdk/lib/isolate" />
+      <root url="file:///run/media/i/fe4bfe2e-bb0c-4853-89a6-59dcf209ce4a/flutter/bin/cache/dart-sdk/lib/math" />
+      <root url="file:///run/media/i/fe4bfe2e-bb0c-4853-89a6-59dcf209ce4a/flutter/bin/cache/dart-sdk/lib/mirrors" />
+      <root url="file:///run/media/i/fe4bfe2e-bb0c-4853-89a6-59dcf209ce4a/flutter/bin/cache/dart-sdk/lib/typed_data" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
