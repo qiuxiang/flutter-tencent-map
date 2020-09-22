@@ -9,6 +9,6 @@ import io.flutter.plugin.platform.PlatformViewFactory
 class TencentMapFactory(private val messenger: BinaryMessenger)
   : PlatformViewFactory(INSTANCE) {
   override fun create(context: Context, id: Int, args: Any?): PlatformView {
-    return TencentMap(messenger, id, args as HashMap<*, *>)
+    return TencentMap(context, messenger, id, args as HashMap<*, *>)
   }
 }
