@@ -1,18 +1,14 @@
-.idea/
+.DS_Store
 .dart_tool/
+
+.packages
 .pub/
-.gradle/
+
 build/
 
+.idea/
 *.iml
-.packages
 .metadata
 pubspec.lock
-local.properties
-.flutter-plugins
-.flutter-plugins-dependencies
-
-example/android/gradle/wrapper/gradle-wrapper.jar
-example/android/gradlew
-example/android/gradlew.bat
-GeneratedPluginRegistrant.java
+pigeon.g.dart
+Pigeon.java

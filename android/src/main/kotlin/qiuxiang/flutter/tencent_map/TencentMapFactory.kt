@@ -1,12 +1,13 @@
-package qiuxiang.flutter.baidu_map
+package qiuxiang.flutter.tencent_map
 
 import android.content.Context
-import io.flutter.plugin.common.StandardMessageCodec
+import io.flutter.plugin.common.BinaryMessenger
+import io.flutter.plugin.common.StandardMessageCodec.INSTANCE
 import io.flutter.plugin.platform.PlatformView
 import io.flutter.plugin.platform.PlatformViewFactory
 
-class TencentMapFactory : PlatformViewFactory(StandardMessageCodec.INSTANCE) {
-    override fun create(context: Context, viewId: Int, args: Any?): PlatformView {
-        return TencentMapView(context)
-    }
+class TencentMapFactory(private val messenger: BinaryMessenger) : PlatformViewFactory(INSTANCE) {
+  override fun create(context: Context, id: Int, args: Any?): PlatformView {
+    return TencentMap(messenger, context)
+  }
 }

@@ -1,57 +1,46 @@
-import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:tencent_map/tencent_map.dart';
-import 'package:tencent_map/tencent_map_view.dart';
+import 'package:flutter/material.dart';
+
+import 'pages/controls.dart';
+import 'pages/events.dart';
+import 'pages/layers.dart';
+import 'pages/map_types.dart';
+import 'pages/move_camera.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const App());
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-
-  @override
-  void initState() {
-    super.initState();
-    initPlatformState();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = await TencentMap.platformVersion;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
-  }
+class App extends StatelessWidget {
+  const App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: TencentMapView(),
+        body: ListView(children: [
+          Item('地图类型切换', (_) => const MapTypesPage()),
+          Item('地图视角移动', (_) => const MoveCameraPage()),
+          Item('图层：路况、室内图、3D 建筑', (_) => const LayersPage()),
+          Item('控件：比例尺、缩放按钮、指南针', (_) => const ControlsPage()),
+          Item('地图事件回调', (_) => const EventsPage()),
+        ]),
       ),
+    );
+  }
+}
+
+class Item extends StatelessWidget {
+  final String title;
+  final Widget Function(BuildContext) builder;
+
+  const Item(this.title, this.builder, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(title),
+      onTap: () => Navigator.push(context, MaterialPageRoute(builder: builder)),
     );
   }
 }
