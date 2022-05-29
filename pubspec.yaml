@@ -1,7 +1,7 @@
 name: tencent_map
-description: A new Flutter plugin project.
+description: Tencent Map SDK for Flutter
 version: 0.0.1
-homepage:
+homepage: https://github.com/qiuxiang/flutter-tencent-map
 
 environment:
   sdk: ">=2.17.1 <3.0.0"
