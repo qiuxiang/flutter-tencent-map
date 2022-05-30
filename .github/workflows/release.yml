@@ -34,6 +34,7 @@ jobs:
           asset_content_type: application/vnd.android.package-archive
       - name: Release
         run: |
+          mkdir -p ~/.config/dart
           echo '${{ secrets.CREDENTIALS }}' > ~/.config/dart/pub-credentials.json
           export version=$(echo ${{ steps.release.outputs.tag_name }} | sed s/v//)
           sed -i -r "s/version: .*/version: $version/" pubspec.yaml
