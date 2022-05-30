@@ -21,7 +21,10 @@ class TencentMap extends StatelessWidget {
           id: params.id,
           viewType: 'tencent_map',
           layoutDirection: TextDirection.ltr,
-        )..create();
+          creationParamsCodec: const StandardMessageCodec(),
+        )
+          ..addOnPlatformViewCreatedListener(params.onPlatformViewCreated)
+          ..create();
       },
     );
   }

@@ -2,11 +2,11 @@ package qiuxiang.tencent_map
 
 import android.content.Context
 import android.view.View
-import com.tencent.tencentmap.mapsdk.maps.MapView
+import com.tencent.tencentmap.mapsdk.maps.TextureMapView
 import io.flutter.plugin.platform.PlatformView
 
-class TencentMap(context: Context?, viewId: Int, args: Any?) : PlatformView {
-  private val view = MapView(context!!)
+class TencentMap(context: Context?, viewId: Int) : PlatformView {
+  private val view = TextureMapView(context!!)
 
   override fun getView(): View {
     return view

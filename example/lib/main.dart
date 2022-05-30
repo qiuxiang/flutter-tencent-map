@@ -10,9 +10,10 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       home: Scaffold(
-        body: Center(child: TencentMap()),
+        appBar: AppBar(title: const Text('腾讯地图')),
+        body: const Center(child: TencentMap()),
       ),
     );
   }
