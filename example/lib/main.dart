@@ -13,7 +13,9 @@ class App extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: const Text('腾讯地图')),
-        body: const Center(child: TencentMap()),
+        body: TencentMap(
+          onMapCreated: (container) {},
+        ),
       ),
     );
   }

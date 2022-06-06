@@ -2,7 +2,6 @@ package qiuxiang.tencent_map
 
 import androidx.annotation.NonNull
 import com.tencent.tencentmap.mapsdk.maps.TencentMapInitializer
-
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -20,7 +19,7 @@ class TencentMapPlugin : FlutterPlugin, MethodCallHandler {
   override fun onAttachedToEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
     channel = MethodChannel(binding.binaryMessenger, "tencent_map")
     channel.setMethodCallHandler(this)
-    binding.platformViewRegistry.registerViewFactory("tencent_map", TencentMapFactory())
+    binding.platformViewRegistry.registerViewFactory("tencent_map", TencentMapFactory(binding.binaryMessenger))
     TencentMapInitializer.setAgreePrivacy(true)
   }
 
