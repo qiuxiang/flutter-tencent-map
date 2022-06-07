@@ -21,6 +21,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
       - name: Build
         run: |
+          mkdir -p android/src/main/java/qiuxiang/tencent_map
           flutter pub get
           flutter pub run pigeon --input lib/src/pigeon.dart
           cd example
