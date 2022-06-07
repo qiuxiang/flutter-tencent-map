@@ -32,3 +32,5 @@ build/
 .metadata
 *.g.dart
 Pigeon.java
+Pigeon.h
+Pigeon.m

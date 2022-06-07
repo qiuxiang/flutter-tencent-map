@@ -1,3 +1,4 @@
+// ignore: depend_on_referenced_packages
 import 'package:pigeon/pigeon.dart';
 
 @ConfigurePigeon(
@@ -5,8 +6,15 @@ import 'package:pigeon/pigeon.dart';
     dartOut: 'lib/src/pigeon.g.dart',
     javaOut: 'android/src/main/java/qiuxiang/tencent_map/Pigeon.java',
     javaOptions: JavaOptions(package: 'qiuxiang.tencent_map'),
+    objcHeaderOut: 'ios/Classes/Pigeon.h',
+    objcSourceOut: 'ios/Classes/Pigeon.m',
   ),
 )
+@HostApi()
+abstract class TencentMapSdkApi {
+  void initSdk(String iosApiKey);
+}
+
 @HostApi()
 abstract class TencentMapApi {
   void setMapType(MapType type);

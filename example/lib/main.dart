@@ -14,6 +14,8 @@ class App extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(title: const Text('腾讯地图')),
         body: TencentMap(
+          rotateGesturesEnabled: false,
+          tiltGesturesEnabled: false,
           onMapCreated: (container) {},
         ),
       ),
