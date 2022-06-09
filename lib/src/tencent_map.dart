@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'pigeon.g.dart';
 
+final _sdkApi = TencentMapSdkApi();
+
 /// 腾讯地图
 class TencentMap extends StatefulWidget {
   const TencentMap({
@@ -79,6 +81,10 @@ class TencentMap extends StatefulWidget {
 
   @override
   createState() => _TencentMapState();
+
+  static init([String iosApiKey = '']) {
+    _sdkApi.initSdk(iosApiKey);
+  }
 }
 
 class _TencentMapState extends State<TencentMap> with WidgetsBindingObserver {
@@ -120,7 +126,7 @@ class _TencentMapState extends State<TencentMap> with WidgetsBindingObserver {
           onPlatformViewCreated: _onPlatformViewCreated,
         );
       default:
-        return Text('$defaultTargetPlatform is not yet supported');
+        return Text('$defaultTargetPlatform is not supported');
     }
   }
 

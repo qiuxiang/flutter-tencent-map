@@ -22,6 +22,15 @@ fun MapPoi.toMapPoi(): Pigeon.MapPoi {
     .build()
 }
 
+fun CameraPosition.toCameraPosition(): Pigeon.CameraPosition {
+  return Pigeon.CameraPosition.Builder()
+    .setBearing(bearing.toDouble())
+    .setTarget(target.toLatLng())
+    .setTilt(tilt.toDouble())
+    .setZoom(zoom.toDouble())
+    .build()
+}
+
 fun Map<*, *>.toCameraPosition(): CameraPosition {
   val map = this
   return CameraPosition.Builder().apply {

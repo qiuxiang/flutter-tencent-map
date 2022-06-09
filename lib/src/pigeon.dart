@@ -39,7 +39,6 @@ abstract class TencentMapHandler {
   void onTap(LatLng latLng);
   void onTapPoi(MapPoi poi);
   void onLongPress(LatLng latLng);
-  void onCameraMoveStarted(CameraPosition cameraPosition);
   void onCameraMove(CameraPosition cameraPosition);
   void onCameraIdle(CameraPosition cameraPosition);
 }
@@ -51,17 +50,13 @@ enum MapType {
 }
 
 class LatLng {
-  final double latitude;
-  final double longitude;
-
-  const LatLng(this.latitude, this.longitude);
+  late double latitude;
+  late double longitude;
 }
 
 class MapPoi {
-  final String name;
-  final LatLng position;
-
-  const MapPoi(this.name, this.position);
+  late String name;
+  late LatLng position;
 }
 
 class CameraPosition {
@@ -69,11 +64,4 @@ class CameraPosition {
   LatLng? target;
   double? tilt;
   double? zoom;
-
-  CameraPosition({
-    this.bearing,
-    this.target,
-    this.tilt,
-    this.zoom,
-  });
 }

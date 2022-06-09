@@ -26,9 +26,12 @@ class TencentMap(messenger: BinaryMessenger, context: Context?) : PlatformView {
     map.setOnMapPoiClickListener { handler.onTapPoi(it.toMapPoi()) {} }
     map.setOnMapLongClickListener { handler.onLongPress(it.toLatLng()) {} }
     map.setOnCameraChangeListener(object : TencentMap.OnCameraChangeListener {
-      override fun onCameraChange(position: CameraPosition?) {}
-      override fun onCameraChangeFinished(position: CameraPosition?) {
-        print(position);
+      override fun onCameraChange(position: CameraPosition) {
+        handler.onCameraMove(position.toCameraPosition()) {}
+      }
+
+      override fun onCameraChangeFinished(position: CameraPosition) {
+        handler.onCameraIdle(position.toCameraPosition()) {}
       }
     })
   }
