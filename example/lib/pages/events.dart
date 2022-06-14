@@ -18,6 +18,7 @@ class EventsPage extends StatelessWidget {
   }
 
   logger(String name) {
+    // ignore: avoid_print
     return (dynamic data) => print('$name: ${data.encode()}');
   }
 }

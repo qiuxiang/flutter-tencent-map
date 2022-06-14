@@ -22,7 +22,6 @@ class TencentMap extends StatefulWidget {
     this.onTap,
     this.onTapPoi,
     this.onLongPress,
-    this.onCameraMoveStarted,
     this.onCameraMove,
     this.onCameraIdle,
   }) : super(key: key);
@@ -69,9 +68,6 @@ class TencentMap extends StatefulWidget {
 
   /// 地图长按事件回调函数
   final void Function(LatLng)? onLongPress;
-
-  /// 地图状态开始改变时调用
-  final void Function(CameraPosition)? onCameraMoveStarted;
 
   /// 地图状态改变时调用
   final void Function(CameraPosition)? onCameraMove;
@@ -182,11 +178,6 @@ class _TencentMapHandler extends TencentMapHandler {
   @override
   void onCameraMove(CameraPosition cameraPosition) {
     widget.onCameraMove?.call(cameraPosition);
-  }
-
-  @override
-  void onCameraMoveStarted(CameraPosition cameraPosition) {
-    widget.onCameraMoveStarted?.call(cameraPosition);
   }
 
   @override

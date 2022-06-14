@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:tencent_map/tencent_map.dart';
 import 'package:flutter/material.dart';
+import 'package:tencent_map/tencent_map.dart';
 
 class MapTypeItem {
   final String name;
