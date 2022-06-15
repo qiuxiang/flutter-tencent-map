@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import 'marker.dart';
 import 'pigeon.g.dart';
 
 final _sdkApi = TencentMapSdkApi();
@@ -24,9 +25,10 @@ class TencentMap extends StatefulWidget {
     this.onLongPress,
     this.onCameraMove,
     this.onCameraIdle,
+    this.onTapMarker,
   }) : super(key: key);
 
-  /// 地图类型 [MapType]
+  /// 地图类型
   final MapType mapType;
 
   /// 指南针是否显示
@@ -74,6 +76,9 @@ class TencentMap extends StatefulWidget {
 
   /// 地图状态结束改变时调用
   final void Function(CameraPosition)? onCameraIdle;
+
+  /// 点击地图标记时调用
+  final void Function(String markerId)? onTapMarker;
 
   @override
   createState() => _TencentMapState();
@@ -194,6 +199,11 @@ class _TencentMapHandler extends TencentMapHandler {
   void onTapPoi(MapPoi mapPoi) {
     widget.onTapPoi?.call(mapPoi);
   }
+
+  @override
+  void onTapMarker(String markerId) {
+    widget.onTapMarker?.call(markerId);
+  }
 }
 
 /// 地图控制器，提供地图控制接口
@@ -203,6 +213,10 @@ class TencentMapController {
   final TencentMapApi _api;
 
   void moveCamera(CameraPosition position, [Duration? duration]) {
-    _api.moveCamera(position.encode() as Map, duration?.inMilliseconds ?? 0);
+    _api.moveCamera(position, duration?.inMilliseconds ?? 0);
+  }
+
+  Future<Marker> addMarket(MarkerOptions options) async {
+    return Marker(await _api.addMarker(options));
   }
 }

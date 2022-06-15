@@ -2,11 +2,12 @@ package qiuxiang.tencent_map
 
 import com.tencent.tencentmap.mapsdk.maps.CameraUpdateFactory
 import com.tencent.tencentmap.mapsdk.maps.TencentMap.*
+import com.tencent.tencentmap.mapsdk.maps.model.MarkerOptions
 import qiuxiang.tencent_map.Pigeon.MapType
 
-class TencentMapApi(tencentMap: TencentMap) : Pigeon.TencentMapApi {
-  private val view = tencentMap.view
+class TencentMapApi(val tencentMap: TencentMap) : Pigeon.TencentMapApi {
   private val map = tencentMap.map
+  private val mapView = tencentMap.view
 
   override fun setMapType(type: MapType) {
     map.mapType = when (type) {
@@ -17,19 +18,19 @@ class TencentMapApi(tencentMap: TencentMap) : Pigeon.TencentMapApi {
   }
 
   override fun pause() {
-    view.onPause()
+    mapView.onPause()
   }
 
   override fun resume() {
-    view.onResume()
+    mapView.onResume()
   }
 
   override fun start() {
-    view.onStart()
+    mapView.onStart()
   }
 
   override fun stop() {
-    view.onStop()
+    mapView.onStop()
   }
 
   override fun setCompassEnabled(enabled: Boolean) {
@@ -68,12 +69,18 @@ class TencentMapApi(tencentMap: TencentMap) : Pigeon.TencentMapApi {
     map.uiSettings.isScaleViewEnabled = enabled
   }
 
-  override fun moveCamera(json: MutableMap<Any, Any>, duration: Long) {
-    val position = CameraUpdateFactory.newCameraPosition(json.toCameraPosition())
+  override fun moveCamera(position: Pigeon.CameraPosition, duration: Long) {
+    val cameraUpdate = CameraUpdateFactory.newCameraPosition(position.toCameraPosition())
     if (duration > 0) {
-      map.animateCamera(position, duration, null)
+      map.animateCamera(cameraUpdate, duration, null)
     } else {
-      map.moveCamera(position)
+      map.moveCamera(cameraUpdate)
     }
+  }
+
+  override fun addMarker(options: Pigeon.MarkerOptions): String {
+    val marker = map.addMarker(MarkerOptions(options.position.toLatLng()))
+    tencentMap.markers[marker.id] = marker
+    return marker.id
   }
 }

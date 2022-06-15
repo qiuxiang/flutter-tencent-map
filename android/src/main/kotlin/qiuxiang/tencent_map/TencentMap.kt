@@ -5,34 +5,41 @@ import com.tencent.tencentmap.mapsdk.maps.MapView
 import com.tencent.tencentmap.mapsdk.maps.TencentMap
 import com.tencent.tencentmap.mapsdk.maps.TextureMapView
 import com.tencent.tencentmap.mapsdk.maps.model.CameraPosition
+import com.tencent.tencentmap.mapsdk.maps.model.Marker
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.platform.PlatformView
 
 class TencentMap(messenger: BinaryMessenger, context: Context?) : PlatformView {
-  private val handler = Pigeon.TencentMapHandler(messenger)
-  private val view = TextureMapView(context!!)
-  val map: TencentMap = view.map
+  private val mapHandler = Pigeon.TencentMapHandler(messenger)
+  private val mapView = TextureMapView(context!!)
+  val map: TencentMap = mapView.map
+  val markers = mutableMapOf<String, Marker>()
 
   override fun getView(): MapView {
-    return view
+    return mapView
   }
 
   override fun dispose() {}
 
   init {
-    view.onResume()
+    mapView.onResume()
     Pigeon.TencentMapApi.setup(messenger, TencentMapApi(this))
-    map.setOnMapClickListener { handler.onTap(it.toLatLng()) {} }
-    map.setOnMapPoiClickListener { handler.onTapPoi(it.toMapPoi()) {} }
-    map.setOnMapLongClickListener { handler.onLongPress(it.toLatLng()) {} }
+    Pigeon.MarkerApi.setup(messenger, MarkerApi(this))
+    map.setOnMapClickListener { mapHandler.onTap(it.toLatLng()) {} }
+    map.setOnMapPoiClickListener { mapHandler.onTapPoi(it.toMapPoi()) {} }
+    map.setOnMapLongClickListener { mapHandler.onLongPress(it.toLatLng()) {} }
     map.setOnCameraChangeListener(object : TencentMap.OnCameraChangeListener {
       override fun onCameraChange(position: CameraPosition) {
-        handler.onCameraMove(position.toCameraPosition()) {}
+        mapHandler.onCameraMove(position.toCameraPosition()) {}
       }
 
       override fun onCameraChangeFinished(position: CameraPosition) {
-        handler.onCameraIdle(position.toCameraPosition()) {}
+        mapHandler.onCameraIdle(position.toCameraPosition()) {}
       }
     })
+    map.setOnMarkerClickListener {
+      mapHandler.onTapMarker(it.id) {}
+      true
+    }
   }
 }

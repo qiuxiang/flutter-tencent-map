@@ -27,7 +27,8 @@ abstract class TencentMapApi {
   void setIndoorViewEnabled(bool enabled);
   void setTrafficEnabled(bool enabled);
   void setBuildingsEnabled(bool enabled);
-  void moveCamera(Map position, int duration);
+  void moveCamera(CameraPosition position, int duration);
+  String addMarker(MarkerOptions options);
   void pause();
   void resume();
   void start();
@@ -41,6 +42,7 @@ abstract class TencentMapHandler {
   void onLongPress(LatLng latLng);
   void onCameraMove(CameraPosition cameraPosition);
   void onCameraIdle(CameraPosition cameraPosition);
+  void onTapMarker(String markerId);
 }
 
 enum MapType {
@@ -64,4 +66,13 @@ class CameraPosition {
   LatLng? target;
   double? tilt;
   double? zoom;
+}
+
+class MarkerOptions {
+  late LatLng position;
+}
+
+@HostApi()
+abstract class MarkerApi {
+  void remove(String id);
 }
