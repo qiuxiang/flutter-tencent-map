@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'marker.dart';
 import 'pigeon.g.dart';
 
-final _sdkApi = TencentMapSdkApi();
-
 /// 腾讯地图
 class TencentMap extends StatefulWidget {
   const TencentMap({
@@ -34,22 +32,22 @@ class TencentMap extends StatefulWidget {
   /// 地图类型
   final MapType mapType;
 
-  /// 指南针是否显示
+  /// 是否显示指南针
   final bool compassEnabled;
 
   /// 是否显示比例尺控件
   final bool scaleControlsEnabled;
 
-  /// 指南针是否显示
+  /// 是否允许旋转手势
   final bool rotateGesturesEnabled;
 
   /// 是否允许拖拽手势
   final bool scrollGesturesEnabled;
 
-  /// 是否允许俯视手势
+  /// 是否允许倾斜手势
   final bool tiltGesturesEnabled;
 
-  /// 是否打开交通图层
+  /// 是否打开路况图层
   final bool trafficEnabled;
 
   /// 是否显示室内图
@@ -57,12 +55,12 @@ class TencentMap extends StatefulWidget {
   /// 室内图只有在缩放级别 [17， 22] 范围才生效，但是在18级之上（包含18级）才会有楼层边条显示。
   final bool indoorViewEnabled;
 
-  /// 是否允许楼块效果
+  /// 是否显示 3D 建筑物
   final bool buildingsEnabled;
 
   /// 地图创建完成时调用
   ///
-  /// 可以使用参数 [TencentMapController] 控制地图
+  /// 可以使用参数 [TencentMapController] 调用地图方法
   final void Function(TencentMapController)? onMapCreated;
 
   /// 地图空白区域单击事件回调函数
@@ -74,34 +72,37 @@ class TencentMap extends StatefulWidget {
   /// 地图长按事件回调函数
   final void Function(LatLng)? onLongPress;
 
-  /// 地图状态改变时调用
+  /// 地图视角改变时调用
   final void Function(CameraPosition)? onCameraMove;
 
-  /// 地图状态结束改变时调用
+  /// 地图视角结束改变时调用
   final void Function(CameraPosition)? onCameraIdle;
 
-  /// 点击地图标记时调用
+  /// 地图标记点击事件回调函数
   final void Function(String markerId)? onTapMarker;
 
-  /// 开始拖拽标记时调用
+  /// 地图标记开始拖拽事件回调函数
   final void Function(String markerId, LatLng latLng)? onMarkerDragStart;
 
-  /// 拖拽标记时调用
+  /// 地图标记拖拽事件回调函数
   final void Function(String markerId, LatLng latLng)? onMarkerDrag;
 
-  /// 结束拖拽标记时调用
+  /// 地图标记拖拽结束事件回调函数
   final void Function(String markerId, LatLng latLng)? onMarkerDragEnd;
 
   @override
   createState() => _TencentMapState();
 
+  static final _sdkApi = TencentMapSdkApi();
+
+  // 初始化 SDK，并设置同意腾讯地图 SDK 隐私协议，显示地图前必须调用
   static init([String iosApiKey = '']) {
     _sdkApi.initSdk(iosApiKey);
   }
 }
 
 class _TencentMapState extends State<TencentMap> with WidgetsBindingObserver {
-  final _api = TencentMapApi();
+  static final _api = TencentMapApi();
 
   @override
   void initState() {
@@ -239,10 +240,12 @@ class TencentMapController {
 
   final TencentMapApi _api;
 
+  // 移动视角
   void moveCamera(CameraPosition position, [Duration? duration]) {
     _api.moveCamera(position, duration?.inMilliseconds ?? 0);
   }
 
+  // 添加标记
   Future<Marker> addMarket(MarkerOptions options) async {
     return Marker(await _api.addMarker(options));
   }

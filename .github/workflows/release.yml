@@ -42,6 +42,7 @@ jobs:
           export version=$(echo ${{ steps.release.outputs.tag_name }} | sed s/v//)
           sed -i -r "s/version: .*/version: $version/" pubspec.yaml
           sed -i "1s/^/## $version\n\n${{ steps.release.outputs.body }}\n\n/" CHANGELOG.md
+          flutter format lib
           flutter pub publish -f
           git config --global user.name 7c00
           git config --global user.email i@7c00.cc

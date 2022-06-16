@@ -1,5 +1,5 @@
 name: tencent_map
-description: Tencent Map SDK for Flutter
+description: Tencent Map SDK for Flutter, support ios and android.
 version: 0.0.1
 homepage: https://github.com/qiuxiang/flutter-tencent-map
 
