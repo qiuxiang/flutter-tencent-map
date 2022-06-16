@@ -26,7 +26,12 @@ class _AddRemoveMarkerPageState extends State<AddRemoveMarkerPage> {
 
   void onTap(LatLng position) async {
     final marker = await controller.addMarket(
-      MarkerOptions(position: position),
+      MarkerOptions(
+        position: position,
+        icon: Bitmap(asset: 'images/marker.png'),
+        anchor: [0.5, 1],
+        draggable: true,
+      ),
     );
     markers[marker.id] = marker;
   }

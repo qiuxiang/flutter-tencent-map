@@ -2,10 +2,9 @@ package qiuxiang.tencent_map
 
 import com.tencent.tencentmap.mapsdk.maps.CameraUpdateFactory
 import com.tencent.tencentmap.mapsdk.maps.TencentMap.*
-import com.tencent.tencentmap.mapsdk.maps.model.MarkerOptions
 import qiuxiang.tencent_map.Pigeon.MapType
 
-class TencentMapApi(val tencentMap: TencentMap) : Pigeon.TencentMapApi {
+class TencentMapApi(private val tencentMap: TencentMap) : Pigeon.TencentMapApi {
   private val map = tencentMap.map
   private val mapView = tencentMap.view
 
@@ -79,7 +78,7 @@ class TencentMapApi(val tencentMap: TencentMap) : Pigeon.TencentMapApi {
   }
 
   override fun addMarker(options: Pigeon.MarkerOptions): String {
-    val marker = map.addMarker(MarkerOptions(options.position.toLatLng()))
+    val marker = map.addMarker(options.toMarkerOptions(tencentMap.binding))
     tencentMap.markers[marker.id] = marker
     return marker.id
   }

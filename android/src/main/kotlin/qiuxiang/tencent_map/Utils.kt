@@ -1,9 +1,8 @@
 package qiuxiang.tencent_map
 
-import com.tencent.tencentmap.mapsdk.maps.model.CameraPosition
-import com.tencent.tencentmap.mapsdk.maps.model.LatLng
-import com.tencent.tencentmap.mapsdk.maps.model.MapPoi
-import com.tencent.tencentmap.mapsdk.maps.model.MarkerOptions
+import android.graphics.BitmapFactory
+import com.tencent.tencentmap.mapsdk.maps.model.*
+import io.flutter.embedding.engine.plugins.FlutterPlugin.FlutterPluginBinding
 
 fun Pigeon.LatLng.toLatLng(): LatLng {
   return LatLng(latitude, longitude)
@@ -32,8 +31,25 @@ fun Pigeon.CameraPosition.toCameraPosition(): CameraPosition {
   }
 }
 
-fun Pigeon.MarkerOptions.toMarkerOptions(): MarkerOptions {
-  return MarkerOptions(position.toLatLng()).let {
-    it
+fun Pigeon.MarkerOptions.toMarkerOptions(binding: FlutterPluginBinding): MarkerOptions {
+  return MarkerOptions(position.toLatLng()).let { options ->
+    icon?.toBitmapDescriptor(binding)?.let { options.icon(it) }
+    rotation?.toFloat()?.let { options.rotation(it) }
+    alpha?.toFloat()?.let { options.alpha(it) }
+    flat?.let { options.flat(it) }
+    anchor?.let { options.anchor(it[0].toFloat(), it[1].toFloat()) }
+    draggable?.let { options.draggable(it) }
+    zIndex?.let { options.zIndex(it.toFloat()) }
+    options
   }
+}
+
+fun Pigeon.Bitmap.toBitmapDescriptor(binding: FlutterPluginBinding): BitmapDescriptor? {
+  asset?.let {
+    return BitmapDescriptorFactory.fromAsset(binding.flutterAssets.getAssetFilePathByName(it))
+  }
+  bytes?.let {
+    return BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeByteArray(it, 0, it.size))
+  }
+  return null
 }
