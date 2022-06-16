@@ -34,7 +34,7 @@ class _AppState extends State<App> {
           Item('地图类型切换', (_) => const MapTypesPage()),
           Item('地图视角移动', (_) => const MoveCameraPage()),
           Item('图层：路况、室内图、3D 建筑', (_) => const LayersPage()),
-          Item('控件：比例尺、缩放按钮、指南针', (_) => const ControlsPage()),
+          Item('控件：比例尺、指南针', (_) => const ControlsPage()),
           Item('地图事件回调', (_) => const EventsPage()),
           Item('动态添加、移除标记', (_) => const AddRemoveMarkerPage()),
         ]),

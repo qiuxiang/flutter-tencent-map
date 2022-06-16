@@ -3,9 +3,8 @@ import 'pigeon.g.dart';
 final _api = MarkerApi();
 
 class Marker {
-  final String id;
-
   const Marker(this.id);
+  final String id;
 
   void remove() => _api.remove(id);
   void setPosition(LatLng position) => _api.setPosition(id, position);

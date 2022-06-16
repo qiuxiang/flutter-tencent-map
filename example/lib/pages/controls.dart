@@ -30,7 +30,7 @@ class _State extends State<ControlsPage> {
       ),
     );
     return Scaffold(
-      appBar: AppBar(title: const Text('控件：比例尺、缩放按钮、指南针')),
+      appBar: AppBar(title: const Text('控件：比例尺、指南针')),
       body: TencentMap(
         scaleControlsEnabled: _state[scaleControls] ?? true,
         compassEnabled: _state[compass] ?? true,

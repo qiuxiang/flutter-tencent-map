@@ -41,5 +41,18 @@ class TencentMap(val binding: FlutterPlugin.FlutterPluginBinding, context: Conte
       mapHandler.onTapMarker(it.id) {}
       true
     }
+    map.setOnMarkerDragListener(object : TencentMap.OnMarkerDragListener {
+      override fun onMarkerDragStart(marker: Marker) {
+        mapHandler.onMarkerDragStart(marker.id, marker.position.toLatLng()) {}
+      }
+
+      override fun onMarkerDrag(marker: Marker) {
+        mapHandler.onMarkerDrag(marker.id, marker.position.toLatLng()) {}
+      }
+
+      override fun onMarkerDragEnd(marker: Marker) {
+        mapHandler.onMarkerDragEnd(marker.id, marker.position.toLatLng()) {}
+      }
+    })
   }
 }

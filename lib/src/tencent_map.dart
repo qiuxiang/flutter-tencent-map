@@ -26,6 +26,9 @@ class TencentMap extends StatefulWidget {
     this.onCameraMove,
     this.onCameraIdle,
     this.onTapMarker,
+    this.onMarkerDragStart,
+    this.onMarkerDrag,
+    this.onMarkerDragEnd,
   }) : super(key: key);
 
   /// 地图类型
@@ -79,6 +82,15 @@ class TencentMap extends StatefulWidget {
 
   /// 点击地图标记时调用
   final void Function(String markerId)? onTapMarker;
+
+  /// 开始拖拽标记时调用
+  final void Function(String markerId, LatLng latLng)? onMarkerDragStart;
+
+  /// 拖拽标记时调用
+  final void Function(String markerId, LatLng latLng)? onMarkerDrag;
+
+  /// 结束拖拽标记时调用
+  final void Function(String markerId, LatLng latLng)? onMarkerDragEnd;
 
   @override
   createState() => _TencentMapState();
@@ -171,38 +183,53 @@ class _TencentMapState extends State<TencentMap> with WidgetsBindingObserver {
 }
 
 class _TencentMapHandler extends TencentMapHandler {
-  TencentMap widget;
+  TencentMap tencentMap;
 
-  _TencentMapHandler(this.widget);
+  _TencentMapHandler(this.tencentMap);
 
   @override
   void onCameraIdle(CameraPosition cameraPosition) {
-    widget.onCameraIdle?.call(cameraPosition);
+    tencentMap.onCameraIdle?.call(cameraPosition);
   }
 
   @override
   void onCameraMove(CameraPosition cameraPosition) {
-    widget.onCameraMove?.call(cameraPosition);
+    tencentMap.onCameraMove?.call(cameraPosition);
   }
 
   @override
   void onLongPress(LatLng latLng) {
-    widget.onLongPress?.call(latLng);
+    tencentMap.onLongPress?.call(latLng);
   }
 
   @override
   void onTap(LatLng latLng) {
-    widget.onTap?.call(latLng);
+    tencentMap.onTap?.call(latLng);
   }
 
   @override
   void onTapPoi(MapPoi mapPoi) {
-    widget.onTapPoi?.call(mapPoi);
+    tencentMap.onTapPoi?.call(mapPoi);
   }
 
   @override
   void onTapMarker(String markerId) {
-    widget.onTapMarker?.call(markerId);
+    tencentMap.onTapMarker?.call(markerId);
+  }
+
+  @override
+  void onMarkerDragStart(String markerId, LatLng latLng) {
+    tencentMap.onMarkerDragStart?.call(markerId, latLng);
+  }
+
+  @override
+  void onMarkerDrag(String markerId, LatLng latLng) {
+    tencentMap.onMarkerDrag?.call(markerId, latLng);
+  }
+
+  @override
+  void onMarkerDragEnd(String markerId, LatLng latLng) {
+    tencentMap.onMarkerDragEnd?.call(markerId, latLng);
   }
 }
 

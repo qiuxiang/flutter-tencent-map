@@ -43,6 +43,9 @@ abstract class TencentMapHandler {
   void onCameraMove(CameraPosition cameraPosition);
   void onCameraIdle(CameraPosition cameraPosition);
   void onTapMarker(String markerId);
+  void onMarkerDragStart(String markerId, LatLng latLng);
+  void onMarkerDrag(String markerId, LatLng latLng);
+  void onMarkerDragEnd(String markerId, LatLng latLng);
 }
 
 enum MapType {
