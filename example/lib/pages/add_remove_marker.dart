@@ -20,6 +20,7 @@ class _AddRemoveMarkerPageState extends State<AddRemoveMarkerPage> {
       appBar: AppBar(title: const Text('动态添加、移除标记')),
       body: TencentMap(
         onTap: (position) => onTap(position),
+        onTapPoi: (poi) => onTap(poi.position),
         onMapCreated: (controller) => this.controller = controller,
         onTapMarker: (markerId) => onTapMarker(markerId),
         onMarkerDragEnd: (markerId, position) =>
