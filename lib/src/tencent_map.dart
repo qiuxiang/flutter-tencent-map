@@ -17,6 +17,7 @@ class TencentMap extends StatefulWidget {
     this.trafficEnabled = false,
     this.indoorViewEnabled = false,
     this.buildingsEnabled = true,
+    this.myLocationButtonEnabled = false,
     this.mapType = MapType.normal,
     this.onTap,
     this.onTapPoi,
@@ -57,6 +58,9 @@ class TencentMap extends StatefulWidget {
 
   /// 是否显示 3D 建筑物
   final bool buildingsEnabled;
+
+  /// 是否显示定位按钮
+  final bool myLocationButtonEnabled;
 
   /// 地图创建完成时调用
   ///
@@ -173,6 +177,9 @@ class _TencentMapState extends State<TencentMap> with WidgetsBindingObserver {
     }
     if (widget.buildingsEnabled != old.buildingsEnabled) {
       _api.setBuildingsEnabled(widget.buildingsEnabled);
+    }
+    if (widget.myLocationButtonEnabled != old.myLocationButtonEnabled) {
+      _api.setMyLocationButtonEnabled(widget.myLocationButtonEnabled);
     }
   }
 

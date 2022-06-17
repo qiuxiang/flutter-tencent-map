@@ -18,8 +18,8 @@ class _State extends State<MoveCameraPage> {
     tilt: 45,
   );
   static final position2 = CameraPosition(
-    target: LatLng(latitude: 39.90864, longitude: 116.39745),
-    zoom: 10,
+    target: LatLng(latitude: 39.97537, longitude: 116.31363),
+    zoom: 16,
     bearing: 0,
     tilt: 0,
   );

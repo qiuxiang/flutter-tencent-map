@@ -37,9 +37,12 @@ class _State extends State<LayersPage> {
         indoorViewEnabled: _state[indoor] ?? false,
         buildingsEnabled: _state[buildings] ?? false,
       ),
-      bottomNavigationBar: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: items.toList(),
+      bottomNavigationBar: Material(
+        elevation: 16,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: items.toList(),
+        ),
       ),
     );
   }

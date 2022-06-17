@@ -10,10 +10,11 @@ class ControlsPage extends StatefulWidget {
 
 const scaleControls = '比例尺';
 const compass = '指南针';
+const myLocationButtonEnabled = '定位按钮';
 
 class _State extends State<ControlsPage> {
   final _state = <String, bool>{};
-  final _items = [scaleControls, compass];
+  final _items = [scaleControls, compass, myLocationButtonEnabled];
 
   @override
   build(context) {
@@ -30,14 +31,18 @@ class _State extends State<ControlsPage> {
       ),
     );
     return Scaffold(
-      appBar: AppBar(title: const Text('控件：比例尺、指南针')),
+      appBar: AppBar(title: const Text('控件：比例尺、指南针、定位按钮')),
       body: TencentMap(
         scaleControlsEnabled: _state[scaleControls] ?? true,
         compassEnabled: _state[compass] ?? true,
+        myLocationButtonEnabled: _state[myLocationButtonEnabled] ?? true,
       ),
-      bottomNavigationBar: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: items.toList(),
+      bottomNavigationBar: Material(
+        elevation: 16,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: items.toList(),
+        ),
       ),
     );
   }

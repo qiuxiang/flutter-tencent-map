@@ -27,6 +27,7 @@ abstract class TencentMapApi {
   void setIndoorViewEnabled(bool enabled);
   void setTrafficEnabled(bool enabled);
   void setBuildingsEnabled(bool enabled);
+  void setMyLocationButtonEnabled(bool enabled);
   void moveCamera(CameraPosition position, int duration);
   String addMarker(MarkerOptions options);
   void pause();

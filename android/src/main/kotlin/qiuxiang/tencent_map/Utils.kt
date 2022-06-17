@@ -21,12 +21,12 @@ fun CameraPosition.toCameraPosition(): Pigeon.CameraPosition {
     .setTilt(tilt.toDouble()).setZoom(zoom.toDouble()).build()
 }
 
-fun Pigeon.CameraPosition.toCameraPosition(): CameraPosition {
+fun Pigeon.CameraPosition.toCameraPosition(cameraPosition: CameraPosition): CameraPosition {
   return CameraPosition.Builder().let { builder ->
-    builder.target(target?.toLatLng())
-    tilt?.toFloat()?.let { builder.tilt(it) }
-    bearing?.toFloat()?.let { builder.bearing(it) }
-    zoom?.toFloat()?.let { builder.zoom(it) }
+    builder.target(target?.toLatLng() ?: cameraPosition.target)
+    builder.tilt(tilt?.toFloat() ?: cameraPosition.tilt)
+    builder.zoom(zoom?.toFloat() ?: cameraPosition.zoom)
+    builder.bearing(bearing?.toFloat() ?: cameraPosition.bearing)
     builder.build()
   }
 }

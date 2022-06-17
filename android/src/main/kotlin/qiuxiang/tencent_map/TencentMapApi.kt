@@ -68,8 +68,13 @@ class TencentMapApi(private val tencentMap: TencentMap) : Pigeon.TencentMapApi {
     map.uiSettings.isScaleViewEnabled = enabled
   }
 
+  override fun setMyLocationButtonEnabled(enabled: Boolean) {
+    map.uiSettings.isMyLocationButtonEnabled = enabled
+  }
+
   override fun moveCamera(position: Pigeon.CameraPosition, duration: Long) {
-    val cameraUpdate = CameraUpdateFactory.newCameraPosition(position.toCameraPosition())
+    val cameraPosition = position.toCameraPosition(map.cameraPosition)
+    val cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition)
     if (duration > 0) {
       map.animateCamera(cameraUpdate, duration, null)
     } else {
