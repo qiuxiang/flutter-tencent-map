@@ -5,11 +5,10 @@ import com.tencent.tencentmap.mapsdk.maps.TencentMap.*
 import qiuxiang.tencent_map.Pigeon.MapType
 
 class TencentMapApi(private val tencentMap: TencentMap) : Pigeon.TencentMapApi {
-  private val map = tencentMap.map
   private val mapView = tencentMap.view
 
   override fun setMapType(type: MapType) {
-    map.mapType = when (type) {
+    mapView.map.mapType = when (type) {
       MapType.normal -> MAP_TYPE_NORMAL
       MapType.satellite -> MAP_TYPE_SATELLITE
       MapType.dark -> MAP_TYPE_DARK
@@ -24,66 +23,63 @@ class TencentMapApi(private val tencentMap: TencentMap) : Pigeon.TencentMapApi {
     mapView.onResume()
   }
 
-  override fun start() {
-    mapView.onStart()
-  }
-
-  override fun stop() {
-    mapView.onStop()
+  override fun destory() {
+    mapView.onDestroy()
   }
 
   override fun setCompassEnabled(enabled: Boolean) {
-    map.uiSettings.isCompassEnabled = enabled
+    mapView.map.uiSettings.isCompassEnabled = enabled
   }
 
   override fun setRotateGesturesEnabled(enabled: Boolean) {
-    map.uiSettings.isRotateGesturesEnabled = enabled
+    mapView.map.uiSettings.isRotateGesturesEnabled = enabled
   }
 
   override fun setScrollGesturesEnabled(enabled: Boolean) {
-    map.uiSettings.isScrollGesturesEnabled = enabled
+    mapView.map.uiSettings.isScrollGesturesEnabled = enabled
   }
 
   override fun setZoomGesturesEnabled(enabled: Boolean) {
-    map.uiSettings.isZoomGesturesEnabled = enabled
+    mapView.map.uiSettings.isZoomGesturesEnabled = enabled
   }
 
   override fun setTiltGesturesEnabled(enabled: Boolean) {
-    map.uiSettings.isTiltGesturesEnabled = enabled
+    mapView.map.uiSettings.isTiltGesturesEnabled = enabled
   }
 
   override fun setIndoorViewEnabled(enabled: Boolean) {
-    map.setIndoorEnabled(enabled)
+    mapView.map.setIndoorEnabled(enabled)
   }
 
   override fun setTrafficEnabled(enabled: Boolean) {
-    map.isTrafficEnabled = enabled
+    mapView.map.isTrafficEnabled = enabled
   }
 
   override fun setBuildingsEnabled(enabled: Boolean) {
-    map.showBuilding(enabled)
+    mapView.map.showBuilding(enabled)
   }
 
   override fun setScaleControlsEnabled(enabled: Boolean) {
-    map.uiSettings.isScaleViewEnabled = enabled
+    mapView.map.uiSettings.isScaleViewEnabled = enabled
   }
 
   override fun setMyLocationButtonEnabled(enabled: Boolean) {
-    map.uiSettings.isMyLocationButtonEnabled = enabled
+    mapView.map.uiSettings.isMyLocationButtonEnabled = enabled
   }
 
   override fun moveCamera(position: Pigeon.CameraPosition, duration: Long) {
-    val cameraPosition = position.toCameraPosition(map.cameraPosition)
+    val cameraPosition = position.toCameraPosition(mapView.map.cameraPosition)
     val cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition)
     if (duration > 0) {
-      map.animateCamera(cameraUpdate, duration, null)
+      mapView.map.stopAnimation()
+      mapView.map.animateCamera(cameraUpdate, duration, null)
     } else {
-      map.moveCamera(cameraUpdate)
+      mapView.map.moveCamera(cameraUpdate)
     }
   }
 
   override fun addMarker(options: Pigeon.MarkerOptions): String {
-    val marker = map.addMarker(options.toMarkerOptions(tencentMap.binding))
+    val marker = mapView.map.addMarker(options.toMarkerOptions(tencentMap.binding))
     tencentMap.markers[marker.id] = marker
     return marker.id
   }

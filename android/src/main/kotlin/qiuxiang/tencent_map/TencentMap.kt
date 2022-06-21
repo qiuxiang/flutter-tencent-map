@@ -11,7 +11,6 @@ import io.flutter.plugin.platform.PlatformView
 class TencentMap(val binding: FlutterPlugin.FlutterPluginBinding, context: Context?) : PlatformView {
   private val mapHandler = Pigeon.TencentMapHandler(binding.binaryMessenger)
   private val mapView = MapView(context!!)
-  val map: TencentMap = mapView.map
   val markers = mutableMapOf<String, Marker>()
 
   override fun getView(): MapView {
@@ -21,13 +20,13 @@ class TencentMap(val binding: FlutterPlugin.FlutterPluginBinding, context: Conte
   override fun dispose() {}
 
   init {
-    mapView.onResume()
     Pigeon.TencentMapApi.setup(binding.binaryMessenger, TencentMapApi(this))
     Pigeon.MarkerApi.setup(binding.binaryMessenger, MarkerApi(this))
-    map.setOnMapClickListener { mapHandler.onTap(it.toLatLng()) {} }
-    map.setOnMapPoiClickListener { mapHandler.onTapPoi(it.toMapPoi()) {} }
-    map.setOnMapLongClickListener { mapHandler.onLongPress(it.toLatLng()) {} }
-    map.setOnCameraChangeListener(object : TencentMap.OnCameraChangeListener {
+    mapView.onResume()
+    mapView.map.setOnMapClickListener { mapHandler.onTap(it.toLatLng()) {} }
+    mapView.map.setOnMapPoiClickListener { mapHandler.onTapPoi(it.toMapPoi()) {} }
+    mapView.map.setOnMapLongClickListener { mapHandler.onLongPress(it.toLatLng()) {} }
+    mapView.map.setOnCameraChangeListener(object : TencentMap.OnCameraChangeListener {
       override fun onCameraChange(position: CameraPosition) {
         mapHandler.onCameraMove(position.toCameraPosition()) {}
       }
@@ -36,11 +35,11 @@ class TencentMap(val binding: FlutterPlugin.FlutterPluginBinding, context: Conte
         mapHandler.onCameraIdle(position.toCameraPosition()) {}
       }
     })
-    map.setOnMarkerClickListener {
+    mapView.map.setOnMarkerClickListener {
       mapHandler.onTapMarker(it.id) {}
       true
     }
-    map.setOnMarkerDragListener(object : TencentMap.OnMarkerDragListener {
+    mapView.map.setOnMarkerDragListener(object : TencentMap.OnMarkerDragListener {
       override fun onMarkerDragStart(marker: Marker) {
         mapHandler.onMarkerDragStart(marker.id, marker.position.toLatLng()) {}
       }

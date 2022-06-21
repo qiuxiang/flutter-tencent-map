@@ -117,6 +117,12 @@ class _TencentMapState extends State<TencentMap> with WidgetsBindingObserver {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+  }
+
+  @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
     switch (state) {
@@ -124,10 +130,11 @@ class _TencentMapState extends State<TencentMap> with WidgetsBindingObserver {
         _api.resume();
         break;
       case AppLifecycleState.paused:
+      case AppLifecycleState.inactive:
         _api.pause();
         break;
-      case AppLifecycleState.inactive:
       case AppLifecycleState.detached:
+        _api.destory();
         break;
     }
   }
@@ -136,28 +143,30 @@ class _TencentMapState extends State<TencentMap> with WidgetsBindingObserver {
   build(context) {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
-        return PlatformViewLink(
-          viewType: 'tencent_map',
-          surfaceFactory: (BuildContext context, controller) {
-            return AndroidViewSurface(
-              controller: controller as AndroidViewController,
-              gestureRecognizers: const {},
-              hitTestBehavior: PlatformViewHitTestBehavior.opaque,
-            );
+        return WillPopScope(
+          onWillPop: () async {
+            _api.destory();
+            return true;
           },
-          onCreatePlatformView: (PlatformViewCreationParams params) {
-            return PlatformViewsService.initExpensiveAndroidView(
-              id: params.id,
-              viewType: 'tencent_map',
-              layoutDirection: TextDirection.ltr,
-            )
-              ..addOnPlatformViewCreatedListener(params.onPlatformViewCreated)
-              ..create();
-          },
-        );
-        return AndroidView(
-          viewType: 'tencent_map',
-          onPlatformViewCreated: _onPlatformViewCreated,
+          child: PlatformViewLink(
+            viewType: 'tencent_map',
+            surfaceFactory: (BuildContext context, controller) {
+              return AndroidViewSurface(
+                controller: controller as AndroidViewController,
+                gestureRecognizers: const {},
+                hitTestBehavior: PlatformViewHitTestBehavior.opaque,
+              );
+            },
+            onCreatePlatformView: (PlatformViewCreationParams params) {
+              return PlatformViewsService.initExpensiveAndroidView(
+                id: params.id,
+                viewType: 'tencent_map',
+                layoutDirection: TextDirection.ltr,
+              )
+                ..addOnPlatformViewCreatedListener(_onPlatformViewCreated)
+                ..create();
+            },
+          ),
         );
       case TargetPlatform.iOS:
         return UiKitView(
@@ -276,5 +285,9 @@ class TencentMapController {
   // 添加标记
   Future<Marker> addMarket(MarkerOptions options) async {
     return Marker(await _api.addMarker(options));
+  }
+
+  Future<void> destory() {
+    return _api.destory();
   }
 }

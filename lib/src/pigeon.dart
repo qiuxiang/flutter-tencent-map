@@ -32,8 +32,7 @@ abstract class TencentMapApi {
   String addMarker(MarkerOptions options);
   void pause();
   void resume();
-  void start();
-  void stop();
+  void destory();
 }
 
 @FlutterApi()
