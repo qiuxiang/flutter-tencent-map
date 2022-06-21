@@ -3,7 +3,6 @@ package qiuxiang.tencent_map
 import android.content.Context
 import com.tencent.tencentmap.mapsdk.maps.MapView
 import com.tencent.tencentmap.mapsdk.maps.TencentMap
-import com.tencent.tencentmap.mapsdk.maps.TextureMapView
 import com.tencent.tencentmap.mapsdk.maps.model.CameraPosition
 import com.tencent.tencentmap.mapsdk.maps.model.Marker
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -11,7 +10,7 @@ import io.flutter.plugin.platform.PlatformView
 
 class TencentMap(val binding: FlutterPlugin.FlutterPluginBinding, context: Context?) : PlatformView {
   private val mapHandler = Pigeon.TencentMapHandler(binding.binaryMessenger)
-  private val mapView = TextureMapView(context!!)
+  private val mapView = MapView(context!!)
   val map: TencentMap = mapView.map
   val markers = mutableMapOf<String, Marker>()
 

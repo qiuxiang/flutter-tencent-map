@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 
 import 'marker.dart';
 import 'pigeon.g.dart';
@@ -134,6 +136,25 @@ class _TencentMapState extends State<TencentMap> with WidgetsBindingObserver {
   build(context) {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
+        return PlatformViewLink(
+          viewType: 'tencent_map',
+          surfaceFactory: (BuildContext context, controller) {
+            return AndroidViewSurface(
+              controller: controller as AndroidViewController,
+              gestureRecognizers: const {},
+              hitTestBehavior: PlatformViewHitTestBehavior.opaque,
+            );
+          },
+          onCreatePlatformView: (PlatformViewCreationParams params) {
+            return PlatformViewsService.initExpensiveAndroidView(
+              id: params.id,
+              viewType: 'tencent_map',
+              layoutDirection: TextDirection.ltr,
+            )
+              ..addOnPlatformViewCreatedListener(params.onPlatformViewCreated)
+              ..create();
+          },
+        );
         return AndroidView(
           viewType: 'tencent_map',
           onPlatformViewCreated: _onPlatformViewCreated,
