@@ -6,6 +6,7 @@ import 'pages/controls.dart';
 import 'pages/events.dart';
 import 'pages/flutter_marker.dart';
 import 'pages/layers.dart';
+import 'pages/list_view.dart';
 import 'pages/map_types.dart';
 import 'pages/move_camera.dart';
 
@@ -39,6 +40,7 @@ class _AppState extends State<App> {
       home: Scaffold(
         body: ListView(children: [
           Item('地图类型切换', (_) => const MapTypesPage()),
+          Item('列表内嵌地图', (_) => const ListViewPage()),
           Item('地图视角移动', (_) => const MoveCameraPage()),
           Item('图层：路况、室内图、3D 建筑', (_) => const LayersPage()),
           Item('控件：比例尺、指南针、定位按钮', (_) => const ControlsPage()),
