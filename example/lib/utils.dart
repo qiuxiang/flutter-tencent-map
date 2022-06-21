@@ -12,4 +12,14 @@ extension ContextExt on BuildContext {
       ),
     );
   }
+
+  Future<void> snackBar(String message) async {
+    ScaffoldMessenger.of(this)
+      ..clearSnackBars()
+      ..showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  bool get isDark {
+    return Theme.of(this).brightness == Brightness.dark;
+  }
 }

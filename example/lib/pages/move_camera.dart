@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tencent_map/tencent_map.dart';
 
+import '../utils.dart';
+
 class MoveCameraPage extends StatefulWidget {
   const MoveCameraPage({Key? key}) : super(key: key);
 
@@ -41,7 +43,10 @@ class _State extends State<MoveCameraPage> {
         ],
       ),
       body: Stack(children: [
-        TencentMap(onMapCreated: (c) => controller = c),
+        TencentMap(
+          mapType: context.isDark ? MapType.dark : MapType.normal,
+          onMapCreated: (controller) => this.controller = controller,
+        ),
         Positioned(
           top: 20,
           width: MediaQuery.of(context).size.width,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tencent_map/tencent_map.dart';
 
+import '../utils.dart';
+
 class LayersPage extends StatefulWidget {
   const LayersPage({Key? key}) : super(key: key);
 
@@ -33,6 +35,7 @@ class _State extends State<LayersPage> {
     return Scaffold(
       appBar: AppBar(title: const Text('图层：路况、室内图、3D 建筑')),
       body: TencentMap(
+        mapType: context.isDark ? MapType.dark : MapType.normal,
         trafficEnabled: _state[traffic] ?? false,
         indoorViewEnabled: _state[indoor] ?? false,
         buildingsEnabled: _state[buildings] ?? false,

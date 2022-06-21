@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:tencent_map/tencent_map.dart';
 
+import '../utils.dart';
+
 class FlutterMarkerPage extends StatefulWidget {
   const FlutterMarkerPage({Key? key}) : super(key: key);
 
@@ -31,7 +33,10 @@ class _FlutterMarkerPageState extends State<FlutterMarkerPage> {
         ),
         Material(
           color: Colors.white,
-          child: TencentMap(onMapCreated: onMapCreated),
+          child: TencentMap(
+            mapType: context.isDark ? MapType.dark : MapType.normal,
+            onMapCreated: onMapCreated,
+          ),
         ),
       ]),
     );

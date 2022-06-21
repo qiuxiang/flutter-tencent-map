@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tencent_map/tencent_map.dart';
 
+import '../utils.dart';
+
 class ControlsPage extends StatefulWidget {
   const ControlsPage({Key? key}) : super(key: key);
 
@@ -33,6 +35,7 @@ class _State extends State<ControlsPage> {
     return Scaffold(
       appBar: AppBar(title: const Text('控件：比例尺、指南针、定位按钮')),
       body: TencentMap(
+        mapType: context.isDark ? MapType.dark : MapType.normal,
         scaleControlsEnabled: _state[scaleControls] ?? true,
         compassEnabled: _state[compass] ?? true,
         myLocationButtonEnabled: _state[myLocationButtonEnabled] ?? true,
