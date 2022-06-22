@@ -31,7 +31,7 @@ class _State extends State<MoveCameraPage> {
     final duration = animated ? const Duration(seconds: 2) : null;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('地图视角移动'),
+        title: const Text('视野移动'),
         actions: [
           Row(children: [
             const Text('动画'),
@@ -51,14 +51,15 @@ class _State extends State<MoveCameraPage> {
           top: 20,
           width: MediaQuery.of(context).size.width,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
-                child: const Text('Position 1'),
+                child: const Text(' 视野 1 '),
                 onPressed: () => controller.moveCamera(position1, duration),
               ),
+              const SizedBox(width: 32),
               ElevatedButton(
-                child: const Text('Position 2'),
+                child: const Text(' 视野 2 '),
                 onPressed: () => controller.moveCamera(position2, duration),
               ),
             ],

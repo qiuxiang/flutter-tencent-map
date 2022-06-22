@@ -40,12 +40,9 @@ class _State extends State<ControlsPage> {
         compassEnabled: _state[compass] ?? true,
         myLocationButtonEnabled: _state[myLocationButtonEnabled] ?? true,
       ),
-      bottomNavigationBar: Material(
-        elevation: 16,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: items.toList(),
-        ),
+      bottomNavigationBar: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: items.toList(),
       ),
     );
   }

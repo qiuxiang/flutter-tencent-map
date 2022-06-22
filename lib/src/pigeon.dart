@@ -28,6 +28,8 @@ abstract class TencentMapApi {
   void setTrafficEnabled(bool enabled);
   void setBuildingsEnabled(bool enabled);
   void setMyLocationButtonEnabled(bool enabled);
+  void setMyLocationEnabled(bool enabled);
+  void setMyLocation(Location location);
   void moveCamera(CameraPosition position, int duration);
   String addMarker(MarkerOptions options);
   void pause();
@@ -57,6 +59,13 @@ enum MapType {
 class LatLng {
   late double latitude;
   late double longitude;
+}
+
+class Location {
+  double? latitude;
+  double? longitude;
+  double? bearing;
+  double? accuracy;
 }
 
 class MapPoi {

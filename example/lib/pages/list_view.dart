@@ -15,14 +15,14 @@ class _ListViewPageState extends State<ListViewPage> {
     return Scaffold(
       appBar: AppBar(title: const Text('列表内嵌地图')),
       body: ListView(children: [
-        Container(color: Theme.of(context).backgroundColor, height: 400),
+        const SizedBox(height: 400),
         SizedBox(
           height: 400,
           child: TencentMap(
             mapType: context.isDark ? MapType.dark : MapType.normal,
           ),
         ),
-        Container(color: Theme.of(context).backgroundColor, height: 400),
+        const SizedBox(height: 400),
       ]),
     );
   }

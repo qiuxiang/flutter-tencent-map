@@ -1,11 +1,23 @@
 package qiuxiang.tencent_map
 
+import android.location.Location
 import com.tencent.tencentmap.mapsdk.maps.CameraUpdateFactory
+import com.tencent.tencentmap.mapsdk.maps.LocationSource
 import com.tencent.tencentmap.mapsdk.maps.TencentMap.*
 import qiuxiang.tencent_map.Pigeon.MapType
 
 class TencentMapApi(private val tencentMap: TencentMap) : Pigeon.TencentMapApi {
   private val mapView = tencentMap.view
+  var locationListener: LocationSource.OnLocationChangedListener? = null
+
+  init {
+    mapView.map.setLocationSource(object : LocationSource {
+      override fun deactivate() {}
+      override fun activate(listener: LocationSource.OnLocationChangedListener) {
+        locationListener = listener
+      }
+    })
+  }
 
   override fun setMapType(type: MapType) {
     mapView.map.mapType = when (type) {
@@ -65,6 +77,14 @@ class TencentMapApi(private val tencentMap: TencentMap) : Pigeon.TencentMapApi {
 
   override fun setMyLocationButtonEnabled(enabled: Boolean) {
     mapView.map.uiSettings.isMyLocationButtonEnabled = enabled
+  }
+
+  override fun setMyLocationEnabled(enabled: Boolean) {
+    mapView.map.isMyLocationEnabled = enabled
+  }
+
+  override fun setMyLocation(location: Pigeon.Location) {
+    locationListener?.onLocationChanged(location.toLocation())
   }
 
   override fun moveCamera(position: Pigeon.CameraPosition, duration: Long) {

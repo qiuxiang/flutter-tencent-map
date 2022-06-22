@@ -1,6 +1,7 @@
 package qiuxiang.tencent_map
 
 import android.content.Context
+import com.tencent.tencentmap.mapsdk.maps.LocationSource
 import com.tencent.tencentmap.mapsdk.maps.MapView
 import com.tencent.tencentmap.mapsdk.maps.TencentMap
 import com.tencent.tencentmap.mapsdk.maps.model.CameraPosition

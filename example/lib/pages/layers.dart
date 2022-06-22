@@ -39,13 +39,13 @@ class _State extends State<LayersPage> {
         trafficEnabled: _state[traffic] ?? false,
         indoorViewEnabled: _state[indoor] ?? false,
         buildingsEnabled: _state[buildings] ?? false,
+        onMapCreated: (controller) {
+          controller.moveCamera(CameraPosition(zoom: 18));
+        },
       ),
-      bottomNavigationBar: Material(
-        elevation: 16,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: items.toList(),
-        ),
+      bottomNavigationBar: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: items.toList(),
       ),
     );
   }

@@ -20,6 +20,7 @@ class TencentMap extends StatefulWidget {
     this.indoorViewEnabled = false,
     this.buildingsEnabled = true,
     this.myLocationButtonEnabled = false,
+    this.myLocationEnabled = false,
     this.mapType = MapType.normal,
     this.onTap,
     this.onTapPoi,
@@ -63,6 +64,9 @@ class TencentMap extends StatefulWidget {
 
   /// 是否显示定位按钮
   final bool myLocationButtonEnabled;
+
+  /// 是否显示当前定位
+  final bool myLocationEnabled;
 
   /// 地图创建完成时调用
   ///
@@ -211,12 +215,15 @@ class _TencentMapState extends State<TencentMap> with WidgetsBindingObserver {
     if (widget.myLocationButtonEnabled != old.myLocationButtonEnabled) {
       _api.setMyLocationButtonEnabled(widget.myLocationButtonEnabled);
     }
+    if (widget.myLocationEnabled != old.myLocationEnabled) {
+      _api.setMyLocationEnabled(widget.myLocationEnabled);
+    }
   }
 
   _onPlatformViewCreated(int id) {
     TencentMapHandler.setup(_TencentMapHandler(widget));
-    widget.onMapCreated?.call(TencentMapController(_api));
     didUpdateWidget(const TencentMap());
+    widget.onMapCreated?.call(TencentMapController(_api));
   }
 }
 
@@ -277,17 +284,23 @@ class TencentMapController {
 
   final TencentMapApi _api;
 
-  // 移动视角
+  /// 移动视野
   void moveCamera(CameraPosition position, [Duration? duration]) {
     _api.moveCamera(position, duration?.inMilliseconds ?? 0);
   }
 
-  // 添加标记
+  /// 添加标记
   Future<Marker> addMarket(MarkerOptions options) async {
     return Marker(await _api.addMarker(options));
   }
 
+  /// 销毁地图
   Future<void> destory() {
     return _api.destory();
+  }
+
+  /// 设置当前定位
+  Future<void> setMyLocation(Location location) {
+    return _api.setMyLocation(location);
   }
 }

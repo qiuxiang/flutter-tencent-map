@@ -32,7 +32,7 @@ class _FlutterMarkerPageState extends State<FlutterMarkerPage> {
           ),
         ),
         Material(
-          color: Colors.white,
+          color: Theme.of(context).scaffoldBackgroundColor,
           child: TencentMap(
             mapType: context.isDark ? MapType.dark : MapType.normal,
             onMapCreated: onMapCreated,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tencent_map/tencent_map.dart';
 
+import 'pages/location.dart';
 import 'pages/add_remove_marker.dart';
 import 'pages/controls.dart';
 import 'pages/events.dart';
@@ -31,20 +32,22 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData().copyWith(
-        appBarTheme: const AppBarTheme(elevation: 0),
+      theme: ThemeData(
+        useMaterial3: true,
       ),
-      darkTheme: ThemeData.dark().copyWith(
-        appBarTheme: const AppBarTheme(elevation: 0),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        useMaterial3: true,
       ),
       home: Scaffold(
         body: ListView(children: [
           Item('地图类型切换', (_) => const MapTypesPage()),
           Item('列表内嵌地图', (_) => const ListViewPage()),
-          Item('地图视角移动', (_) => const MoveCameraPage()),
+          Item('视野移动', (_) => const MoveCameraPage()),
           Item('图层：路况、室内图、3D 建筑', (_) => const LayersPage()),
           Item('控件：比例尺、指南针、定位按钮', (_) => const ControlsPage()),
           Item('地图事件回调', (_) => const EventsPage()),
+          Item('定位', (_) => const LocationPage()),
           Item('动态添加、移除标记', (_) => const AddRemoveMarkerPage()),
           Item('Flutter widget 标记', (_) => const FlutterMarkerPage()),
         ]),

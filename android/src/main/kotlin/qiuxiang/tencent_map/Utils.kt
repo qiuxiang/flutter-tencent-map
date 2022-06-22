@@ -1,6 +1,7 @@
 package qiuxiang.tencent_map
 
 import android.graphics.BitmapFactory
+import android.location.Location
 import com.tencent.tencentmap.mapsdk.maps.model.*
 import io.flutter.embedding.engine.plugins.FlutterPlugin.FlutterPluginBinding
 
@@ -28,6 +29,16 @@ fun Pigeon.CameraPosition.toCameraPosition(cameraPosition: CameraPosition): Came
     builder.zoom(zoom?.toFloat() ?: cameraPosition.zoom)
     builder.bearing(bearing?.toFloat() ?: cameraPosition.bearing)
     builder.build()
+  }
+}
+
+fun Pigeon.Location.toLocation(): Location {
+  return Location("tencent_map").let { location ->
+    latitude?.let { location.latitude = it }
+    longitude?.let { location.longitude = it }
+    accuracy?.let { location.accuracy = it.toFloat() }
+    bearing?.let { location.bearing = it.toFloat() }
+    location
   }
 }
 
