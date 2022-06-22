@@ -1,6 +1,5 @@
 package qiuxiang.tencent_map
 
-import android.location.Location
 import com.tencent.tencentmap.mapsdk.maps.CameraUpdateFactory
 import com.tencent.tencentmap.mapsdk.maps.LocationSource
 import com.tencent.tencentmap.mapsdk.maps.TencentMap.*
@@ -85,6 +84,10 @@ class TencentMapApi(private val tencentMap: TencentMap) : Pigeon.TencentMapApi {
 
   override fun setMyLocation(location: Pigeon.Location) {
     locationListener?.onLocationChanged(location.toLocation())
+  }
+
+  override fun setMyLocationStyle(style: Pigeon.MyLocationStyle) {
+    mapView.map.setMyLocationStyle(style.toMyLocationStyle())
   }
 
   override fun moveCamera(position: Pigeon.CameraPosition, duration: Long) {

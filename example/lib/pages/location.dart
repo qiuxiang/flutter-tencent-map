@@ -18,7 +18,15 @@ class _LocationPageState extends State<LocationPage> {
         mapType: context.isDark ? MapType.dark : MapType.normal,
         myLocationEnabled: true,
         myLocationButtonEnabled: true,
+        myLocationStyle: MyLocationStyle(
+          myLocationType: MyLocationType.followNoCenter,
+        ),
         onMapCreated: (controller) async {
+          controller.moveCamera(
+            CameraPosition(
+              target: LatLng(latitude: 39.909, longitude: 116.397),
+            ),
+          );
           controller.setMyLocation(
             Location(latitude: 39.909, longitude: 116.397, accuracy: 1000),
           );

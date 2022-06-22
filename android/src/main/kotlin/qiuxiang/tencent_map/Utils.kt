@@ -42,6 +42,22 @@ fun Pigeon.Location.toLocation(): Location {
   }
 }
 
+fun Pigeon.MyLocationStyle.toMyLocationStyle(): MyLocationStyle {
+  return MyLocationStyle().let { style ->
+    myLocationType?.let {
+      style.myLocationType(
+        when (it) {
+          Pigeon.MyLocationType.followNoCenter -> MyLocationStyle.LOCATION_TYPE_FOLLOW_NO_CENTER
+          Pigeon.MyLocationType.locationRotate -> MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE
+          Pigeon.MyLocationType.locationRotateNoCenter -> MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE_NO_CENTER
+          Pigeon.MyLocationType.mapRotateNoCenter -> MyLocationStyle.LOCATION_TYPE_MAP_ROTATE_NO_CENTER
+        }
+      )
+    }
+    style
+  }
+}
+
 fun Pigeon.MarkerOptions.toMarkerOptions(binding: FlutterPluginBinding): MarkerOptions {
   return MarkerOptions(position.toLatLng()).let { options ->
     icon?.toBitmapDescriptor(binding)?.let { options.icon(it) }
