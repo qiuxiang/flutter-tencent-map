@@ -72,7 +72,7 @@ class TencentMap extends StatefulWidget {
   /// 定位样式
   final MyLocationStyle? myLocationStyle;
 
-  /// 地图创建完成时调用
+  /// 地图创建完成事件回调函数
   ///
   /// 可以使用参数 [TencentMapController] 调用地图方法
   final void Function(TencentMapController)? onMapCreated;
@@ -86,10 +86,10 @@ class TencentMap extends StatefulWidget {
   /// 地图长按事件回调函数
   final void Function(LatLng)? onLongPress;
 
-  /// 地图视角改变时调用
+  /// 地图视野改变事件回调函数
   final void Function(CameraPosition)? onCameraMove;
 
-  /// 地图视角结束改变时调用
+  /// 地图视野结束改变事件回调函数
   final void Function(CameraPosition)? onCameraIdle;
 
   /// 地图标记点击事件回调函数
