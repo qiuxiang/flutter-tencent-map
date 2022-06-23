@@ -12,7 +12,7 @@ import 'package:pigeon/pigeon.dart';
 )
 @HostApi()
 abstract class TencentMapSdkApi {
-  void initSdk(String iosApiKey);
+  void initSdk(String? iosApiKey, bool agreePrivacy);
 }
 
 @HostApi()

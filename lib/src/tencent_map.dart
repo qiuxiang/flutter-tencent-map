@@ -109,9 +109,11 @@ class TencentMap extends StatefulWidget {
 
   static final _sdkApi = TencentMapSdkApi();
 
-  // 初始化 SDK，并设置同意腾讯地图 SDK 隐私协议，显示地图前必须调用
-  static init([String iosApiKey = '']) {
-    _sdkApi.initSdk(iosApiKey);
+  /// 初始化 SDK，显示地图前必须调用
+  ///
+  /// 请确保用户同意腾讯地图 SDK 隐私协议并设置 [agreePrivacy] = true
+  static init({String? iosApiKey, bool agreePrivacy = false}) {
+    _sdkApi.initSdk(iosApiKey, agreePrivacy);
   }
 }
 

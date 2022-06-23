@@ -26,7 +26,7 @@ class _AppState extends State<App> {
   @override
   void initState() {
     super.initState();
-    TencentMap.init();
+    TencentMap.init(agreePrivacy: true);
   }
 
   @override
