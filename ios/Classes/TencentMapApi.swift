@@ -60,4 +60,32 @@ class _TencentMapApi: NSObject, TencentMapApi {
     func startWithError(_: AutoreleasingUnsafeMutablePointer<FlutterError?>) {}
 
     func stopWithError(_: AutoreleasingUnsafeMutablePointer<FlutterError?>) {}
+
+    func setMyLocationButtonEnabledEnabled(_: NSNumber, error _: AutoreleasingUnsafeMutablePointer<FlutterError?>) {}
+
+    func setMyLocationEnabledEnabled(_ enabled: NSNumber, error _: AutoreleasingUnsafeMutablePointer<FlutterError?>) {
+        mapView.showsUserLocation = enabled.boolValue
+    }
+
+    func setMyLocationLocation(_: Location, error _: AutoreleasingUnsafeMutablePointer<FlutterError?>) {}
+
+    func setMyLocationStyleStyle(_: MyLocationStyle, error _: AutoreleasingUnsafeMutablePointer<FlutterError?>) {}
+
+    func move(_ position: CameraPosition, duration: NSNumber, error _: AutoreleasingUnsafeMutablePointer<FlutterError?>) {
+        let animated = duration.doubleValue > 0
+        if let it = position.target?.latLng { mapView.setCenter(it, animated: animated) }
+        if let it = position.zoom?.doubleValue { mapView.setZoomLevel(CGFloat(it), animated: animated) }
+        if let it = position.tilt?.doubleValue { mapView.setOverlooking(CGFloat(it), animated: animated) }
+        if let it = position.bearing?.doubleValue { mapView.setRotation(CGFloat(it), animated: animated) }
+    }
+
+    func add(_: PolylineOptions, error _: AutoreleasingUnsafeMutablePointer<FlutterError?>) -> String? {
+        return ""
+    }
+
+    func add(_: MarkerOptions, error _: AutoreleasingUnsafeMutablePointer<FlutterError?>) -> String? {
+        return ""
+    }
+
+    func destoryWithError(_: AutoreleasingUnsafeMutablePointer<FlutterError?>) {}
 }

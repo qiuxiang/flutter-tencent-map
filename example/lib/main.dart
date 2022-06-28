@@ -26,7 +26,10 @@ class _AppState extends State<App> {
   @override
   void initState() {
     super.initState();
-    TencentMap.init(agreePrivacy: true);
+    TencentMap.init(
+      agreePrivacy: true,
+      iosApiKey: 'TOCBZ-IY266-74KSP-MTWNM-PBYAT-LWB3O',
+    );
   }
 
   @override
@@ -34,10 +37,11 @@ class _AppState extends State<App> {
     return MaterialApp(
       theme: ThemeData(
         useMaterial3: true,
+        colorScheme: const ColorScheme.light(),
       ),
       darkTheme: ThemeData(
-        brightness: Brightness.dark,
         useMaterial3: true,
+        colorScheme: const ColorScheme.dark(),
       ),
       home: Scaffold(
         body: ListView(children: [

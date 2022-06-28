@@ -6,4 +6,3 @@ public class SwiftTencentMapPlugin: NSObject, FlutterPlugin {
         TencentMapSdkApiSetup(registrar.messenger(), _TencentMapSdkApi())
     }
 }
-	

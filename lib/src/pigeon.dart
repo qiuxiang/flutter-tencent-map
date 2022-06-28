@@ -33,6 +33,7 @@ abstract class TencentMapApi {
   void setMyLocationStyle(MyLocationStyle style);
   void moveCamera(CameraPosition position, int duration);
   String addMarker(MarkerOptions options);
+  String addPolyline(PolylineOptions options);
   void pause();
   void resume();
   void destory();
@@ -79,8 +80,8 @@ class MyLocationStyle {
 }
 
 class LatLng {
-  late double latitude;
-  late double longitude;
+  double? latitude;
+  double? longitude;
 }
 
 class Location {
@@ -111,6 +112,10 @@ class MarkerOptions {
   bool? draggable;
   Bitmap? icon;
   List<double?>? anchor;
+}
+
+class PolylineOptions {
+  List<LatLng?>? points;
 }
 
 class Bitmap {
