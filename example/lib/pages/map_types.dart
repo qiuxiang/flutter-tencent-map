@@ -34,7 +34,9 @@ class _MapTypesPageState extends State<MapTypesPage> {
             onPressed: showOptions,
             child: Text(
               types[mapType]!,
-              style: const TextStyle(color: Colors.white),
+              style: TextStyle(
+                color: Theme.of(context).textTheme.bodyText1?.color,
+              ),
             ),
           ),
         ],

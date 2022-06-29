@@ -112,8 +112,8 @@ class TencentMap extends StatefulWidget {
   /// 初始化 SDK，显示地图前必须调用
   ///
   /// 请确保用户同意腾讯地图 SDK 隐私协议并设置 [agreePrivacy] = true
-  static init({String? iosApiKey, bool agreePrivacy = false}) {
-    _sdkApi.initSdk(iosApiKey, agreePrivacy);
+  static Future<void> init({String? iosApiKey, bool agreePrivacy = false}) {
+    return _sdkApi.initSdk(iosApiKey, agreePrivacy);
   }
 }
 
@@ -153,6 +153,10 @@ class _TencentMapState extends State<TencentMap> with WidgetsBindingObserver {
   build(context) {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
+        // return AndroidView(
+        //   viewType: 'tencent_map',
+        //   onPlatformViewCreated: _onPlatformViewCreated,
+        // );
         return WillPopScope(
           onWillPop: () async {
             _api.destory();
