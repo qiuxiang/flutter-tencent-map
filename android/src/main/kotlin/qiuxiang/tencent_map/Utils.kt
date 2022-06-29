@@ -6,7 +6,7 @@ import com.tencent.tencentmap.mapsdk.maps.model.*
 import io.flutter.embedding.engine.plugins.FlutterPlugin.FlutterPluginBinding
 
 fun Pigeon.LatLng.toLatLng(): LatLng {
-  return LatLng(latitude, longitude)
+  return LatLng(latitude ?: 0.0, longitude ?: 0.0)
 }
 
 fun LatLng.toLatLng(): Pigeon.LatLng {
