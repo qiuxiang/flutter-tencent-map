@@ -32,6 +32,7 @@ class TencentMap extends StatefulWidget {
     this.onMarkerDragStart,
     this.onMarkerDrag,
     this.onMarkerDragEnd,
+    this.onLocation,
   }) : super(key: key);
 
   /// 地图类型
@@ -103,6 +104,9 @@ class TencentMap extends StatefulWidget {
 
   /// 地图标记拖拽结束事件回调函数
   final void Function(String markerId, LatLng latLng)? onMarkerDragEnd;
+
+  /// 地图定位回调函数
+  final void Function(Location)? onLocation;
 
   @override
   createState() => _TencentMapState();
@@ -289,6 +293,11 @@ class _TencentMapHandler extends TencentMapHandler {
   @override
   void onMarkerDragEnd(String markerId, LatLng latLng) {
     tencentMap.onMarkerDragEnd?.call(markerId, latLng);
+  }
+
+  @override
+  void onLocation(Location location) {
+    tencentMap.onLocation?.call(location);
   }
 }
 

@@ -62,12 +62,20 @@ class TencentMap(val binding: FlutterPlugin.FlutterPluginBinding, context: Conte
     val request = TencentLocationRequest.create()
     locationManager.requestLocationUpdates(request, object : TencentLocationListener {
       override fun onLocationChanged(location: TencentLocation?, p1: Int, p2: String?) {
-        if (location == null) return
+        if (location == null || (location.latitude == 0.0 && location.longitude == 0.0)) return
+
         mapApi.locationListener?.onLocationChanged(Location("").apply {
           latitude = location.latitude
           longitude = location.longitude
           accuracy = location.accuracy
+          bearing = location.bearing
         })
+        val pigeonLocation = Pigeon.Location.Builder()
+          .setLatitude(location.latitude)
+          .setLongitude(location.longitude)
+          .setAccuracy(location.accuracy.toDouble())
+          .setBearing(location.bearing.toDouble()).build()
+        mapHandler.onLocation(pigeonLocation) {}
       }
 
       override fun onStatusUpdate(p0: String?, p1: Int, p2: String?) {
