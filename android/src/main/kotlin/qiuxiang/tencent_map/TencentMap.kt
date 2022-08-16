@@ -1,7 +1,11 @@
 package qiuxiang.tencent_map
 
 import android.content.Context
-import com.tencent.tencentmap.mapsdk.maps.LocationSource
+import android.location.Location
+import com.tencent.map.geolocation.TencentLocation
+import com.tencent.map.geolocation.TencentLocationListener
+import com.tencent.map.geolocation.TencentLocationManager
+import com.tencent.map.geolocation.TencentLocationRequest
 import com.tencent.tencentmap.mapsdk.maps.MapView
 import com.tencent.tencentmap.mapsdk.maps.TencentMap
 import com.tencent.tencentmap.mapsdk.maps.model.CameraPosition
@@ -21,7 +25,8 @@ class TencentMap(val binding: FlutterPlugin.FlutterPluginBinding, context: Conte
   override fun dispose() {}
 
   init {
-    Pigeon.TencentMapApi.setup(binding.binaryMessenger, TencentMapApi(this))
+    val mapApi = TencentMapApi(this)
+    Pigeon.TencentMapApi.setup(binding.binaryMessenger, mapApi)
     Pigeon.MarkerApi.setup(binding.binaryMessenger, MarkerApi(this))
     mapView.onResume()
     mapView.map.setOnMapClickListener { mapHandler.onTap(it.toLatLng()) {} }
@@ -51,6 +56,21 @@ class TencentMap(val binding: FlutterPlugin.FlutterPluginBinding, context: Conte
 
       override fun onMarkerDragEnd(marker: Marker) {
         mapHandler.onMarkerDragEnd(marker.id, marker.position.toLatLng()) {}
+      }
+    })
+    val locationManager = TencentLocationManager.getInstance(context)
+    val request = TencentLocationRequest.create()
+    locationManager.requestLocationUpdates(request, object : TencentLocationListener {
+      override fun onLocationChanged(location: TencentLocation?, p1: Int, p2: String?) {
+        if (location == null) return
+        mapApi.locationListener?.onLocationChanged(Location("").apply {
+          latitude = location.latitude
+          longitude = location.longitude
+          accuracy = location.accuracy
+        })
+      }
+
+      override fun onStatusUpdate(p0: String?, p1: Int, p2: String?) {
       }
     })
   }
