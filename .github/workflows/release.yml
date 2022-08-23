@@ -26,6 +26,7 @@ jobs:
           flutter pub run pigeon --input lib/src/pigeon.dart
           cd example
           flutter create .
+          sed s/flutter.minSdkVersion/19/ android/app/build.gradle
           flutter build apk --target-platform android-arm64
       - uses: actions/upload-release-asset@v1
         env:
