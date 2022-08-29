@@ -9,6 +9,6 @@ import io.flutter.plugin.platform.PlatformViewFactory
 class TencentMapFactory(private val binding: FlutterPlugin.FlutterPluginBinding) :
   PlatformViewFactory(StandardMessageCodec.INSTANCE) {
   override fun create(context: Context?, viewId: Int, args: Any?): PlatformView {
-    return TencentMap(binding, context)
+    return TencentMap(binding, context!!, args as HashMap<*, *>)
   }
 }

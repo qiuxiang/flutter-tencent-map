@@ -34,6 +34,14 @@ class TencentMapApi(private val tencentMap: TencentMap) : Pigeon.TencentMapApi {
     mapView.onResume()
   }
 
+  override fun stop() {
+    mapView.onStop()
+  }
+
+  override fun start() {
+    mapView.onStart()
+  }
+
   override fun destory() {
     mapView.onDestroy()
   }

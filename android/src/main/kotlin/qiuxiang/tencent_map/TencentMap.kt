@@ -6,25 +6,33 @@ import com.tencent.map.geolocation.TencentLocation
 import com.tencent.map.geolocation.TencentLocationListener
 import com.tencent.map.geolocation.TencentLocationManager
 import com.tencent.map.geolocation.TencentLocationRequest
+import com.tencent.tencentmap.mapsdk.maps.BaseMapView
 import com.tencent.tencentmap.mapsdk.maps.MapView
 import com.tencent.tencentmap.mapsdk.maps.TencentMap
+import com.tencent.tencentmap.mapsdk.maps.TextureMapView
 import com.tencent.tencentmap.mapsdk.maps.model.CameraPosition
 import com.tencent.tencentmap.mapsdk.maps.model.Marker
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.platform.PlatformView
 
-class TencentMap(val binding: FlutterPlugin.FlutterPluginBinding, context: Context?) : PlatformView {
+class TencentMap(val binding: FlutterPlugin.FlutterPluginBinding, context: Context, args: HashMap<*, *>) :
+  PlatformView {
   private val mapHandler = Pigeon.TencentMapHandler(binding.binaryMessenger)
-  private val mapView = MapView(context!!)
+  private val mapView: BaseMapView
   val markers = mutableMapOf<String, Marker>()
 
-  override fun getView(): MapView {
+  override fun getView(): BaseMapView {
     return mapView
   }
 
   override fun dispose() {}
 
   init {
+    mapView = if (args["texture"] as Boolean) {
+      TextureMapView(context)
+    } else {
+      MapView(context)
+    }
     val mapApi = TencentMapApi(this)
     Pigeon.TencentMapApi.setup(binding.binaryMessenger, mapApi)
     Pigeon.MarkerApi.setup(binding.binaryMessenger, MarkerApi(this))
@@ -70,11 +78,8 @@ class TencentMap(val binding: FlutterPlugin.FlutterPluginBinding, context: Conte
           accuracy = location.accuracy
           bearing = location.bearing
         })
-        val pigeonLocation = Pigeon.Location.Builder()
-          .setLatitude(location.latitude)
-          .setLongitude(location.longitude)
-          .setAccuracy(location.accuracy.toDouble())
-          .setBearing(location.bearing.toDouble()).build()
+        val pigeonLocation = Pigeon.Location.Builder().setLatitude(location.latitude).setLongitude(location.longitude)
+          .setAccuracy(location.accuracy.toDouble()).setBearing(location.bearing.toDouble()).build()
         mapHandler.onLocation(pigeonLocation) {}
       }
 

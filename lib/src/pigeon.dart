@@ -36,6 +36,8 @@ abstract class TencentMapApi {
   String addPolyline(PolylineOptions options);
   void pause();
   void resume();
+  void stop();
+  void start();
   void destory();
 }
 

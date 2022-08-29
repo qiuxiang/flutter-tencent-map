@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
 import 'marker.dart';
@@ -10,6 +9,7 @@ import 'pigeon.g.dart';
 class TencentMap extends StatefulWidget {
   const TencentMap({
     Key? key,
+    this.androidTexture = false,
     this.onMapCreated,
     this.compassEnabled = false,
     this.scaleControlsEnabled = true,
@@ -34,6 +34,12 @@ class TencentMap extends StatefulWidget {
     this.onMarkerDragEnd,
     this.onLocation,
   }) : super(key: key);
+
+  /// android 是否使用 TextureMapView
+  ///
+  /// 默认的 SurfaceMapView 可能存在布局异常，使用 TextureMapView
+  /// 可以解决，但性能较差
+  final bool androidTexture;
 
   /// 地图类型
   final MapType mapType;
@@ -157,34 +163,11 @@ class _TencentMapState extends State<TencentMap> with WidgetsBindingObserver {
   build(context) {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
-        // return AndroidView(
-        //   viewType: 'tencent_map',
-        //   onPlatformViewCreated: _onPlatformViewCreated,
-        // );
-        return WillPopScope(
-          onWillPop: () async {
-            _api.destory();
-            return true;
-          },
-          child: PlatformViewLink(
-            viewType: 'tencent_map',
-            surfaceFactory: (BuildContext context, controller) {
-              return AndroidViewSurface(
-                controller: controller as AndroidViewController,
-                gestureRecognizers: const {},
-                hitTestBehavior: PlatformViewHitTestBehavior.opaque,
-              );
-            },
-            onCreatePlatformView: (PlatformViewCreationParams params) {
-              return PlatformViewsService.initExpensiveAndroidView(
-                id: params.id,
-                viewType: 'tencent_map',
-                layoutDirection: TextDirection.ltr,
-              )
-                ..addOnPlatformViewCreatedListener(_onPlatformViewCreated)
-                ..create();
-            },
-          ),
+        return AndroidView(
+          viewType: 'tencent_map',
+          creationParams: {'texture': widget.androidTexture},
+          creationParamsCodec: const StandardMessageCodec(),
+          onPlatformViewCreated: _onPlatformViewCreated,
         );
       case TargetPlatform.iOS:
         return UiKitView(
@@ -320,6 +303,21 @@ class TencentMapController {
   /// 销毁地图
   Future<void> destory() {
     return _api.destory();
+  }
+
+  /// 停止地图渲染
+  Future<void> stop() {
+    return _api.stop();
+  }
+
+  /// 暂停地图渲染
+  Future<void> pause() {
+    return _api.pause();
+  }
+
+  /// 恢复地图渲染
+  Future<void> resume() {
+    return _api.resume();
   }
 
   /// 设置当前定位
